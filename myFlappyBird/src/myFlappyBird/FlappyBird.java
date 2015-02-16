@@ -19,7 +19,7 @@ public class FlappyBird extends JFrame{
 	public void init(){
 		
 		setTitle("Flappy Bird");
-		drawSpace = new DrawPanel(this);
+		drawSpace = new DrawPanel();
 		add(drawSpace);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(WIDTH, HEIGHT);
