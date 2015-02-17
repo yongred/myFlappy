@@ -22,7 +22,7 @@ public class FlappyBird extends JFrame{
 		drawSpace = new DrawPanel();
 		add(drawSpace);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(WIDTH, HEIGHT);
+		setSize(800, 600);
 		setResizable(false);
 		setVisible(true);
 		
