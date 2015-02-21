@@ -1,25 +1,29 @@
 package myFlappyBird;
 
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class Bird {
 	
 	private DrawPanel gamePanel;
-	private double dy;
-
-	private double x;
-	private double y;
+	private int dy;
 	
+	private int width = 64;
+	private int height = 64;
+	private int x;
+	private int y;
+	
+	private SpriteSheet ss;
 	private boolean is_jumping = false;
 	private BufferedImage birdImg;
 	
-	public Bird(double x, double y, DrawPanel gamePanel){
+	public Bird(int x, int y, DrawPanel gamePanel){
 		this.x = x;
 		this.y = y;
 		this.gamePanel = gamePanel;
-		SpriteSheet ss = new SpriteSheet(gamePanel.getSpriteSheet());
-		birdImg = ss.grabImage(1, 1, 32, 32);
+		this.ss = new SpriteSheet(gamePanel.getSpriteSheet());
+		birdImg = ss.grabImage(1, 1, 64, 64);
 	}
 	
 	public void tick(){
@@ -32,15 +36,24 @@ public class Bird {
 	}
 	
 	public void sink(){
-		dy = 2;
+		dy = 5;
+	}
+	
+	public boolean isVisible(){
+		boolean visible;
+		if(y + height >= gamePanel.getHeight() || y <= 0 ){
+			visible = false;
+		} else{
+			visible = true;
+		}
+		return visible;
 	}
 
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();
 		
-		if(key == KeyEvent.VK_SPACE && !is_jumping){
+		if(key == KeyEvent.VK_SPACE){
 			jump();
-			is_jumping = true;
 		} 
 	}
 	
@@ -49,32 +62,50 @@ public class Bird {
 		
 		if(key == KeyEvent.VK_SPACE){
 			sink();
-			is_jumping = false;
 		}
 	}
 	
-	public double getX() {
+	public Rectangle getBounds(){
+		return new Rectangle(x, y, width, height);
+	}
+	
+	public int getX() {
 		return x;
 	}
 
-	public void setX(double x) {
+	public void setX(int x) {
 		this.x = x;
 	}
 
-	public double getY() {
+	public int getY() {
 		return y;
 	}
 
-	public void setY(double y) {
+	public void setY(int y) {
 		this.y = y;
 	}
 	
-	public double getDy() {
+	public int getDy() {
 		return dy;
 	}
 
-	public void setDy(double dy) {
+	public void setDy(int dy) {
 		this.dy = dy;
+	}
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
 	public BufferedImage getBirdImg() {
@@ -85,4 +116,7 @@ public class Bird {
 		this.birdImg = birdImg;
 	}
 	
+	public void setBirdImgColRow(int col, int row){
+		this.birdImg = this.ss.grabImage(col, row, 64, 64);
+	}
 }

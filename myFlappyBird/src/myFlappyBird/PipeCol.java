@@ -14,7 +14,14 @@ public class PipeCol extends Rectangle{
 	public void tick(){
 		this.x -= speed;
 	}
-
+	
+	public boolean isVisible(){
+		if(x + width <= 0){
+			return false;
+		}
+		else 
+			return true;
+	}
 	public int getSpeed() {
 		return speed;
 	}
