@@ -1,5 +1,6 @@
 package myFlappyBird;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -12,14 +13,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -46,7 +44,6 @@ public class DrawPanel extends JPanel implements ActionListener{
 		
 		addKeyListener(new myAdapter());
 		BufferedImageLoader loader = new BufferedImageLoader();
-		
 		try{
 			setSpriteSheet(loader.loadImage("/sprite_Sheet.png"));
 			background = loader.loadImage("/background.png");
@@ -72,7 +69,7 @@ public class DrawPanel extends JPanel implements ActionListener{
 	}
 	
 	public void addCol(){
-		int space = 300;
+		int space = 200;
 		int width = 100;
 		int height = 100 + rand.nextInt(200);
 		
@@ -103,6 +100,8 @@ public class DrawPanel extends JPanel implements ActionListener{
 		g.setFont(new Font("TimesRoman", Font.BOLD, 20)); 
 		g.drawString(String.valueOf(highScore) , 400, 250);
 		if(!timer.isRunning()){
+			g.drawImage(bird.getBirdImg(), bird.getX(), bird.getY(), this);
+			g.drawString("press shift key to change \"BIRD\"!!", 400, 375);
 			g.drawString("Press enter to pause/start!", 400, 400);
 			g.drawString("press space_bar to jump", 400, 350);
 		}
@@ -160,7 +159,7 @@ public class DrawPanel extends JPanel implements ActionListener{
 		
 		if(birdBound.y + birdBound.height >= HEIGHT - 59){
 			bird.setY(HEIGHT - birdBound.height - 59);
-			//inGame = false;
+			inGame = false;
 		}
 		
 		if(birdBound.y <= 0){
@@ -196,6 +195,18 @@ public class DrawPanel extends JPanel implements ActionListener{
 	        			timer.restart();
 	        		}
 	        	}
+	        	
+	        	if(e.getKeyCode() == KeyEvent.VK_SHIFT){
+	        		int col;
+	        		if(bird.getImgCol() >= 6){
+	        			col = 1;
+	
+	        		} else{
+	        			col = bird.getImgCol() +1;
+	        		}
+	        		bird.setImgCol(col);
+	        		bird.setBirdImgColRow(col , 1);
+	        	}
 	        	else
 	        		bird.keyPressed(e);
 	        }
@@ -208,24 +219,9 @@ public class DrawPanel extends JPanel implements ActionListener{
 	
 	public void scoreSave(int hScore) {
 		
-		try {
-			FileWriter fw = new FileWriter("highScore.txt");
-			FileReader fr = new FileReader("highScore.txt");
-			PrintWriter pw = new PrintWriter(fw);
-			BufferedReader br = new BufferedReader(fr);
-			int hs = 0;
-			int temp = 0;
-			String str;
-		
 			if(hScore > this.highScore){
-				pw.println(hScore);
 				this.highScore = hScore;
 			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
 	}
 	
 	public BufferedImage getSpriteSheet() {

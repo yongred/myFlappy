@@ -13,7 +13,8 @@ public class Bird {
 	private int height = 64;
 	private int x;
 	private int y;
-	
+	private int imgCol, imgRow;
+
 	private SpriteSheet ss;
 	private boolean is_jumping = false;
 	private BufferedImage birdImg;
@@ -23,7 +24,9 @@ public class Bird {
 		this.y = y;
 		this.gamePanel = gamePanel;
 		this.ss = new SpriteSheet(gamePanel.getSpriteSheet());
-		birdImg = ss.grabImage(1, 1, 64, 64);
+		this.imgCol = 1; 
+		this.imgRow = 1;
+		birdImg = ss.grabImage(imgCol, imgRow, 64, 64);
 	}
 	
 	public void tick(){
@@ -92,6 +95,7 @@ public class Bird {
 	public void setDy(int dy) {
 		this.dy = dy;
 	}
+	
 	public int getWidth() {
 		return width;
 	}
@@ -118,5 +122,21 @@ public class Bird {
 	
 	public void setBirdImgColRow(int col, int row){
 		this.birdImg = this.ss.grabImage(col, row, 64, 64);
+	}
+	
+	public int getImgCol() {
+		return imgCol;
+	}
+
+	public void setImgCol(int imgCol) {
+		this.imgCol = imgCol;
+	}
+
+	public int getImgRow() {
+		return imgRow;
+	}
+
+	public void setImgRow(int imgRow) {
+		this.imgRow = imgRow;
 	}
 }

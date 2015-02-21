@@ -1,10 +1,8 @@
 package myFlappyBird;
 
-import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.awt.Dimension;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class FlappyBird extends JFrame{
@@ -21,6 +19,7 @@ public class FlappyBird extends JFrame{
 		setTitle("Flappy Bird");
 		drawSpace = new DrawPanel();
 		add(drawSpace);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
 		setResizable(false);
