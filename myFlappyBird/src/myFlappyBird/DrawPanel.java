@@ -72,7 +72,7 @@ public class DrawPanel extends JPanel implements ActionListener{
 	}
 	
 	public void addCol(){
-		int space = 200;
+		int space = 300;
 		int width = 100;
 		int height = 100 + rand.nextInt(200);
 		
@@ -216,13 +216,8 @@ public class DrawPanel extends JPanel implements ActionListener{
 			int hs = 0;
 			int temp = 0;
 			String str;
-			while((str = br.readLine()) != null){
-				temp = Integer.parseInt(str);
-				if(temp > hs){
-					hs = temp;
-				}
-			}
-			if(hScore > hs){
+		
+			if(hScore > this.highScore){
 				pw.println(hScore);
 				this.highScore = hScore;
 			}
